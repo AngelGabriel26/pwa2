@@ -8,8 +8,7 @@
   "background_color": "#F3F4F6",
   "theme_color": "#3B82F6",
   "scope": "./",
-  "categories": ["education", "mathematics"],
+  "icons": [],
   "lang": "es",
-  "dir": "ltr",
-  "prefer_related_applications": false
+  "dir": "ltr"
 }
