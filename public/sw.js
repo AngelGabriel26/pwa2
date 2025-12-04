@@ -1,4 +1,4 @@
-const CACHE_NAME = 'candyland-cache-v2'; // <-- versión nueva para borrar icon_152
+const CACHE_NAME = 'candyland-cache-v4'; // <--- CAMBIAR LA VERSIÓN AQUÍ
 const ASSETS = [
   './',
   './index.html',
