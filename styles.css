@@ -1,0 +1,644 @@
+/* ==================================================
+   styles.css - Potencia y Raíz Cuadrada
+   Diseño moderno, atractivo y enfocado en aritmética
+   ================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;700&display=swap');
+
+:root {
+  /* Paleta de Colores Moderna y Atractiva */
+  --primary: #5A67D8; /* Azul/Violeta - para acciones principales */
+  --primary-light: #EEF4FF; /* Fondo suave */
+  --secondary: #38B2AC; /* Teal/Menta - para acentos/reglas */
+  --secondary-light: #E6FFFA;
+  --accent: #F6AD55; /* Naranja/Cálido - para exponentes */
+  
+  /* Colores de Texto y Fondo */
+  --text-dark: #1A202C;
+  --text-medium: #4A5568;
+  --bg-page: #F7FAFC; /* Fondo muy claro */
+  --bg-card: #FFFFFF;
+  --border-color: #E2E8F0;
+  
+  /* Feedback Colors */
+  --success: #38A169;
+  --success-light: #F0FFF4;
+  --error: #E53E3E;
+  --error-light: #FFF5F5;
+  --warning: #DD6B20;
+  --warning-light: #FEFCBF;
+}
+
+/* ===========================================
+   Base Reset & Typography
+   ============================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  background-color: var(--bg-page);
+  line-height: 1.6;
+}
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.6rem; }
+
+p {
+  margin-bottom: 10px;
+}
+
+.text-large {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text-medium);
+}
+
+
+/* ===========================================
+   Hero / Header (Diseño Oscuro Atractivo)
+   ============================================ */
+.hero {
+  background-color: var(--primary); /* Fondo Azul/Violeta */
+  color: white;
+  padding: 40px 20px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.hero.small {
+  padding: 25px 20px;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+.hero-text h1 {
+  color: white;
+  margin-bottom: 0px;
+}
+
+.hero-text .lead {
+  color: #E2E8F0;
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
+.logo {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+
+/* ===========================================
+   Cards (Estructura de Contenido)
+   ============================================ */
+.card {
+  background-color: var(--bg-card);
+  padding: 30px;
+  border-radius: 16px;
+  /* Sombra suave y atractiva */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 25px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    float: right;
+    margin-left: 20px;
+    line-height: 1;
+}
+.card h2 {
+    overflow: hidden; 
+}
+
+
+/* ===========================================
+   Estilos para Potencia y Raíz (Math)
+   ============================================ */
+
+/* Contenedor del problema matemático */
+.math-problem, .math-problem-large {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 20px 0;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    color: var(--text-dark);
+}
+
+.math-problem-large {
+    font-size: 4.5rem; /* Para actividades y el interactivo principal */
+    display: block;
+    margin: 30px 0;
+}
+
+.base-number {
+    font-size: 1em; /* Mismo tamaño que la raíz o la base normal */
+}
+
+/* Exponente: Superíndice con color de acento */
+.exponent-number {
+    font-size: 0.5em; 
+    font-weight: 700;
+    position: relative;
+    top: -1.5em;
+    margin-left: -0.2em;
+    color: var(--accent);
+}
+
+/* Elementos de la Lección */
+.power-boxes {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.coord-box { /* Reutilizado para Base/Exponente */
+    background: var(--primary-light);
+    padding: 15px 10px;
+    border-radius: 10px;
+    border: 2px solid var(--primary);
+    flex-basis: 50%;
+}
+
+.coord-label {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Grillas de Ejemplos */
+.root-explanation-grid, .power-examples-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.root-example-item, .example-item {
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-page);
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.root-math, .example-math {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 5px;
+}
+
+.root-calc, .example-calc {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+
+/* ===========================================
+   Botones, Inputs y Navegación
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  border: 2px solid transparent;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: #4C51BF;
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: white;
+  border-color: var(--secondary);
+}
+
+.btn-secondary:hover {
+  background-color: #319795;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-light);
+}
+
+.btn-muted {
+  background-color: var(--border-color);
+  color: var(--text-medium);
+  border-color: var(--border-color);
+}
+.btn-muted:hover {
+    background-color: #CBD5E0;
+}
+
+.btn-large {
+  padding: 12px 25px;
+  font-size: 1.1rem;
+}
+
+.btn-icon {
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+/* Botones de Opción (Examen) */
+.btn-option {
+    margin: 6px 10px 6px 0;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: background-color 0.1s, border-color 0.1s, transform 0.1s;
+}
+.btn-option:hover {
+    border-color: var(--primary);
+    transform: translateY(-1px);
+}
+.btn-option.selected {
+    background-color: var(--primary-light);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-light);
+}
+.btn-option.correct {
+    background-color: var(--success-light);
+    border-color: var(--success);
+    color: var(--success);
+    font-weight: 700;
+}
+.btn-option.incorrect-selection {
+    background-color: var(--error-light);
+    border-color: var(--error);
+    color: var(--error);
+}
+
+/* Inputs */
+.input-section {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin: 20px 0;
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.coord-input {
+  padding: 10px 15px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  width: 100%;
+  max-width: 200px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.coord-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
+}
+
+
+/* ===========================================
+   Feedback & Helper Boxes
+   ============================================ */
+.hint-box, .feedback-message, .info-box {
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+.info-box {
+    background: var(--secondary-light);
+    border-left: 5px solid var(--secondary);
+    color: #2C5233; /* Darker green for text */
+}
+.info-box strong {
+    color: var(--secondary);
+}
+
+/* Interactive Hint (index.html) */
+.hint-box {
+    background: var(--primary-light);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+.hint-success {
+    background: var(--success-light);
+    border: 1px solid var(--success);
+    color: var(--success);
+}
+.hint-error {
+    background: var(--error-light);
+    border: 1px solid var(--error);
+    color: var(--error);
+}
+.hint-warning {
+    background: var(--warning-light);
+    border: 1px solid var(--warning);
+    color: var(--warning);
+}
+
+/* Feedback messages for Activities */
+.feedback-message {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+
+/* ===========================================
+   Pasos (index.html)
+   ============================================ */
+.steps {
+    margin-top: 20px;
+    display: grid;
+    gap: 20px;
+}
+.step {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+.step-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-light);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.step-content h3 {
+    margin-bottom: 5px;
+    font-size: 1.15rem;
+}
+.example-box {
+    padding: 20px;
+    border: 1px dashed var(--primary);
+    border-radius: 10px;
+    background: var(--primary-light);
+    margin-top: 25px;
+    color: var(--text-dark);
+}
+.example-box ol {
+    padding-left: 20px;
+    margin-top: 10px;
+    list-style: disc;
+}
+
+
+/* ===========================================
+   Examen Styling
+   ============================================ */
+.question-block {
+    position: relative;
+    padding-right: 70px;
+    opacity: 0;
+    animation-name: fadeInUp;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 0s; /* 👈 AGREGA ESTO */
+}
+
+.question-block.loaded {
+    opacity: 1 !important;
+}
+
+.question-header {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.question-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.math-question-text {
+    font-size: 1.15rem;
+    font-weight: 500;
+}
+
+.feedback-icon {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    font-size: 2.5rem;
+    display: none;
+}
+
+/* Contenedor de Resultados del Examen */
+.result-container {
+    text-align: center;
+}
+.result-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+.result-icon {
+    font-size: 3rem;
+    line-height: 1;
+}
+.result-details {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+.detail-box {
+    background: var(--bg-page);
+    border: 1px solid var(--border-color);
+    padding: 15px 20px;
+    border-radius: 12px;
+    min-width: 100px;
+}
+.detail-box h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-medium);
+}
+.result-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+}
+.result-message {
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 20px;
+    border-radius: 10px;
+    background: var(--success-light);
+    border: 1px solid var(--success);
+    color: var(--success);
+    margin-bottom: 25px;
+}
+
+
+/* ===========================================
+   Footer & Media Queries
+   ============================================ */
+.footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-medium);
+  font-size: 0.9rem;
+}
+.footer p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  .card {
+    padding: 20px;
+  }
+  .card-icon {
+      display: none;
+  }
+  .power-boxes, .root-explanation-grid, .power-examples-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-large {
+    width: 100%;
+  }
+  .result-details {
+      flex-direction: column;
+      gap: 15px;
+  }
+  .detail-box {
+      width: 100%;
+  }
+}
+
+/* ===========================================
+   Animaciones (Mantener)
+   ============================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aplicar animación a las tarjetas */
+.card {
+  animation: fadeInUp 0.5s ease-out;
+}
+/* Retrasos para las tarjetas */
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Accesibilidad */
+.btn:focus,
+.coord-input:focus,
+.btn-option:focus {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+.btn:focus:not(:focus-visible) {
+  outline: none;
+}
