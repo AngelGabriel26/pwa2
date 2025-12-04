@@ -1,7 +1,7 @@
 {
-  "name": "coordenadas-cartesianas-pwa",
+  "name": "potencia-raiz-pwa",
   "version": "1.0.0",
-  "description": "PWA educativa para aprender coordenadas cartesianas - Matemáticas 6° Grado",
+  "description": "PWA educativa para practicar conceptos de Potencia y Raíz Cuadrada - Matemáticas.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -12,10 +12,10 @@
     "pwa",
     "educacion",
     "matematicas",
-    "coordenadas",
-    "cartesianas",
-    "primaria",
-    "sexto-grado"
+    "potencia",
+    "raiz-cuadrada",
+    "exponentes",
+    "secundaria"
   ],
   "author": "Romi",
   "license": "MIT",

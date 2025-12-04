@@ -1,6 +1,6 @@
 /* ==================================================
    Server.js - Servidor Node.js
-   Backend para PWA con Web Push Notifications
+   Backend para PWA de Potencia y Raíz (Web Push Notifications)
    ================================================== */
 
 const express = require('express');
@@ -44,199 +44,124 @@ function saveSubscriptions() {
   }
 }
 
-// ===== CONFIGURACIÓN DE WEB PUSH =====
-// Generar llaves VAPID: npx web-push generate-vapid-keys
-let vapidKeys = {
-  publicKey: process.env.VAPID_PUBLIC_KEY || null,
-  privateKey: process.env.VAPID_PRIVATE_KEY || null
-};
+// ===== CONFIGURACIÓN VAPID =====
+const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY;
+const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
+const VAPID_SUBJECT = process.env.VAPID_SUBJECT || 'mailto:romi.admin@ejemplo.com';
 
-if (!vapidKeys.publicKey || !vapidKeys.privateKey) {
-  console.log('⚠️  No se encontraron llaves VAPID en variables de entorno');
-  console.log('🔑 Generando llaves temporales para desarrollo...');
+let vapidKeys = { publicKey: VAPID_PUBLIC_KEY, privateKey: VAPID_PRIVATE_KEY };
+
+if (!VAPID_PUBLIC_KEY || !VAPID_PRIVATE_KEY) {
+  console.warn('⚠️ ADVERTENCIA: Las claves VAPID no están definidas en .env. Se generarán unas temporales.');
+  console.warn('Ejecuta npm run generate-vapid o define VAPID_PUBLIC_KEY y VAPID_PRIVATE_KEY en .env');
   vapidKeys = webpush.generateVAPIDKeys();
-  console.log('\n📌 GUARDA ESTAS LLAVES EN TU ARCHIVO .env:');
-  console.log('VAPID_PUBLIC_KEY=' + vapidKeys.publicKey);
-  console.log('VAPID_PRIVATE_KEY=' + vapidKeys.privateKey);
-  console.log('');
 }
 
 webpush.setVapidDetails(
-  'mailto:tu-email@ejemplo.com',
+  VAPID_SUBJECT,
   vapidKeys.publicKey,
   vapidKeys.privateKey
 );
 
-// ===== ENDPOINTS API =====
+// Función para enviar la notificación
+async function sendNotification(subscription, payload) {
+  try {
+    await webpush.sendNotification(subscription, payload);
+    return { status: 'success' };
+  } catch (error) {
+    // Si el error es 410 Gone, la suscripción ya no es válida y debe ser eliminada
+    if (error.statusCode === 410) {
+      console.log('🚨 Suscripción expirada. Eliminando...');
+      subscriptions = subscriptions.filter(s => s.endpoint !== subscription.endpoint);
+      saveSubscriptions();
+      return { status: 'deleted' };
+    }
+    console.error('❌ Error al enviar notificación:', error.message);
+    return { status: 'error', message: error.message };
+  }
+}
 
-// Obtener llave pública VAPID
+// ===== ENDPOINTS DE LA API =====
+
+// Obtener la clave pública VAPID
 app.get('/vapidPublicKey', (req, res) => {
-  res.json({ publicKey: vapidKeys.publicKey });
+  res.send(vapidKeys.publicKey);
 });
 
-// Suscribirse a notificaciones push
+// Registrar una nueva suscripción
 app.post('/subscribe', (req, res) => {
   const subscription = req.body;
-  
-  if (!subscription || !subscription.endpoint) {
-    return res.status(400).json({ 
-      error: 'Suscripción inválida',
-      success: false 
-    });
-  }
 
-  // Evitar duplicados
-  const exists = subscriptions.find(sub => sub.endpoint === subscription.endpoint);
-  if (!exists) {
+  // Verificar si la suscripción ya existe
+  const existingSubscription = subscriptions.find(s => s.endpoint === subscription.endpoint);
+  if (!existingSubscription) {
     subscriptions.push(subscription);
     saveSubscriptions();
     console.log('✅ Nueva suscripción registrada');
-    console.log(`📊 Total de suscripciones: ${subscriptions.length}`);
+    res.status(201).json({ message: 'Suscripción registrada con éxito' });
   } else {
-    console.log('ℹ️  Suscripción ya existe');
+    res.status(200).json({ message: 'Suscripción ya existe' });
   }
-
-  res.status(201).json({ 
-    success: true,
-    message: 'Suscripción registrada correctamente',
-    totalSubscriptions: subscriptions.length
-  });
 });
 
-// Cancelar suscripción
+// Eliminar una suscripción
 app.post('/unsubscribe', (req, res) => {
   const { endpoint } = req.body;
-  
-  if (!endpoint) {
-    return res.status(400).json({ 
-      error: 'Endpoint requerido',
-      success: false 
-    });
-  }
-
   const initialLength = subscriptions.length;
-  subscriptions = subscriptions.filter(sub => sub.endpoint !== endpoint);
+
+  subscriptions = subscriptions.filter(s => s.endpoint !== endpoint);
   
   if (subscriptions.length < initialLength) {
     saveSubscriptions();
-    console.log('🗑️  Suscripción eliminada');
-    res.json({ 
-      success: true,
-      message: 'Suscripción cancelada',
-      totalSubscriptions: subscriptions.length
-    });
+    console.log('🗑️ Suscripción eliminada');
+    res.status(200).json({ message: 'Suscripción eliminada con éxito' });
   } else {
-    res.status(404).json({ 
-      success: false,
-      message: 'Suscripción no encontrada'
-    });
+    res.status(404).json({ message: 'Suscripción no encontrada' });
   }
 });
 
-// Enviar notificación a todos los suscriptores
+
+// Endpoint para enviar una notificación a todos
 app.post('/sendNotification', async (req, res) => {
-  const { 
-    title = 'Coordenadas Cartesianas', 
-    message = '¡Practica tus coordenadas!', 
-    url = '/',
-    data = {}
-  } = req.body;
+  // Parámetros opcionales del cuerpo de la solicitud (body)
+  const { title, message, url, data } = req.body;
 
-  if (subscriptions.length === 0) {
-    return res.json({ 
-      success: false,
-      message: 'No hay suscriptores',
-      sent: 0
-    });
-  }
-
-  const payload = JSON.stringify({
-    title,
-    message,
-    url,
-    data,
-    timestamp: Date.now()
-  });
-
-  const results = [];
-  let successCount = 0;
-  let failureCount = 0;
-
-  for (const subscription of subscriptions) {
-    try {
-      await webpush.sendNotification(subscription, payload);
-      results.push({ 
-        endpoint: subscription.endpoint.substring(0, 50) + '...', 
-        status: 'success' 
-      });
-      successCount++;
-    } catch (err) {
-      console.error('❌ Error enviando notificación:', err.message);
-      results.push({ 
-        endpoint: subscription.endpoint.substring(0, 50) + '...', 
-        status: 'error', 
-        error: err.message 
-      });
-      failureCount++;
-      
-      // Si el error es 410 (Gone), eliminar la suscripción
-      if (err.statusCode === 410) {
-        subscriptions = subscriptions.filter(sub => sub.endpoint !== subscription.endpoint);
-        saveSubscriptions();
-        console.log('🗑️  Suscripción inválida eliminada');
+  // Payload de la notificación (ADAPTADO AL NUEVO TEMA)
+  const notificationPayload = JSON.stringify({
+    title: title || '🧠 Reto Matemático: Potencia y Raíz', // Título adaptado
+    options: {
+      body: message || '¡A practicar! ¿Cuál es la raíz cuadrada de 64 o 2 elevado a la potencia de 3?', // Mensaje adaptado
+      icon: '/img/icons/icon-192x192.png',
+      badge: '/img/icons/icon-192x192.png',
+      vibrate: [100, 50, 100],
+      data: {
+        url: url || '/quiz/potencia-raiz', // URL de destino adaptada
+        dateOfArrival: Date.now(),
+        primaryKey: 1,
+        topic: data?.topic || 'matematicas-potencia-raiz' // Tema adaptado
       }
     }
-  }
+  });
 
-  console.log(`📤 Notificaciones enviadas: ${successCount} exitosas, ${failureCount} fallidas`);
+  const sendPromises = subscriptions.map(sub => sendNotification(sub, notificationPayload));
+  const results = await Promise.all(sendPromises);
 
-  res.json({ 
-    success: true,
-    sent: successCount,
-    failed: failureCount,
+  // Lógica final de respuesta
+  res.status(202).json({ 
+    message: 'Procesando envío de notificaciones', 
     totalSubscriptions: subscriptions.length,
-    results
+    processed: results.filter(r => r.status === 'success').length,
+    deleted: results.filter(r => r.status === 'deleted').length,
+    errors: results.filter(r => r.status === 'error').length
   });
 });
 
-// Enviar notificación programada (recordatorio)
-app.post('/scheduleReminder', async (req, res) => {
-  const { delayMinutes = 5 } = req.body;
-  
-  const delayMs = delayMinutes * 60 * 1000;
-  
-  setTimeout(async () => {
-    console.log('⏰ Enviando recordatorio programado...');
-    
-    const payload = JSON.stringify({
-      title: '📐 Recordatorio de Estudio',
-      message: 'Es hora de practicar coordenadas cartesianas. ¡5 minutos de práctica!',
-      url: '/actividades.html',
-      timestamp: Date.now()
-    });
-
-    for (const subscription of subscriptions) {
-      try {
-        await webpush.sendNotification(subscription, payload);
-      } catch (err) {
-        console.error('Error en recordatorio:', err.message);
-      }
-    }
-  }, delayMs);
-
-  res.json({ 
-    success: true,
-    message: `Recordatorio programado para dentro de ${delayMinutes} minutos`,
-    willSendAt: new Date(Date.now() + delayMs).toISOString()
-  });
-});
-
-// Estadísticas
-app.get('/stats', (req, res) => {
+// Información del servidor
+app.get('/info', (req, res) => {
   res.json({
-    totalSubscriptions: subscriptions.length,
-    vapidPublicKey: vapidKeys.publicKey.substring(0, 20) + '...',
-    serverUptime: process.uptime(),
+    name: 'Potencia y Raíz PWA Server',
+    version: '1.0.0',
+    uptime: process.uptime(),
     timestamp: new Date().toISOString()
   });
 });
@@ -250,7 +175,7 @@ app.get('/status', (req, res) => {
   });
 });
 
-// ===== SERVIR ARCHIVOS ESTÁTICOS =====
+// ===== SERVIR ARCHIVOS ESTÁTICOS (asumiendo que 'public' contiene los archivos de la PWA) =====
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -275,25 +200,11 @@ app.use((req, res) => {
 // ===== INICIAR SERVIDOR =====
 app.listen(PORT, () => {
   console.log('\n' + '='.repeat(50));
-  console.log('🚀 Servidor iniciado correctamente');
+  console.log('🚀 Servidor de PWA de Potencia y Raíz iniciado correctamente'); // Mensaje adaptado
   console.log('='.repeat(50));
   console.log(`📍 URL: http://localhost:${PORT}`);
   console.log(`📊 Suscripciones activas: ${subscriptions.length}`);
   console.log(`🔑 VAPID configurado: ${vapidKeys.publicKey ? 'Sí' : 'No'}`);
-  console.log('='.repeat(50) + '\n');
+  console.log('='.repeat(50));
 });
 
-// ===== MANEJO DE CIERRE GRACEFUL =====
-process.on('SIGTERM', () => {
-  console.log('🛑 SIGTERM recibido, cerrando servidor...');
-  saveSubscriptions();
-  process.exit(0);
-});
-
-process.on('SIGINT', () => {
-  console.log('\n🛑 SIGINT recibido, cerrando servidor...');
-  saveSubscriptions();
-  process.exit(0);
-});
-
-module.exports = app;
