@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Actividades - Coordenadas Cartesianas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="page-activities">
+  <div class="page">
+    <header class="hero small">
+      <div class="hero-content">
+        <div class="logo">🎯</div>
+        <div class="hero-text">
+          <h1>Actividades Prácticas</h1>
+          <p class="lead">Ejercicios dinámicos - Cada intento es diferente</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Ejercicio 1: Identificar coordenadas del punto -->
+      <section class="card">
+        <div class="card-icon">📍</div>
+        <h2>Ejercicio 1: Identifica las Coordenadas</h2>
+        <p class="instruction">Observa el punto marcado en la cuadrícula numerada y escribe sus coordenadas (X, Y):</p>
+        
+        <div class="exercise-board-container">
+          <div class="board" id="activityBoard"></div>
+        </div>
+
+        <div class="input-section">
+          <div class="input-group">
+            <label for="inputX">Coordenada X (horizontal):</label>
+            <input id="inputX" class="coord-input" type="number" placeholder="X">
+          </div>
+          <div class="input-group">
+            <label for="inputY">Coordenada Y (vertical):</label>
+            <input id="inputY" class="coord-input" type="number" placeholder="Y">
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button id="checkBtn" class="btn btn-primary">
+            <span class="btn-icon">✓</span>
+            <span class="btn-text">Verificar Respuesta</span>
+          </button>
+          <button id="newBtn" class="btn btn-outline">
+            <span class="btn-icon">🔄</span>
+            <span class="btn-text">Nuevo Punto</span>
+          </button>
+        </div>
+
+        <div id="activityFeedback" class="feedback-message"></div>
+
+        <div class="hint-section">
+          <p><strong>💡 Recuerda:</strong> Primero cuenta en el eje X (horizontal) desde 0, luego en el eje Y (vertical). Los números con signo − indican izquierda o abajo.</p>
+        </div>
+      </section>
+
+      <!-- Ejercicio 2: Identificar cuadrante -->
+      <section class="card">
+        <div class="card-icon">🧩</div>
+        <h2>Ejercicio 2: ¿En Qué Cuadrante Está?</h2>
+        <p class="instruction">Lee la coordenada y selecciona en qué cuadrante, eje u origen se encuentra:</p>
+        
+        <div class="coord-display" id="quadrantCoord">
+          <span class="coord-badge">(?, ?)</span>
+        </div>
+
+        <div class="quadrant-options" id="quadrantOptions">
+          <button class="quadrant-btn q1-btn" data-quadrant="I">
+            <div class="q-num">I</div>
+            <div class="q-desc">X+ Y+</div>
+          </button>
+          <button class="quadrant-btn q2-btn" data-quadrant="II">
+            <div class="q-num">II</div>
+            <div class="q-desc">X− Y+</div>
+          </button>
+          <button class="quadrant-btn q3-btn" data-quadrant="III">
+            <div class="q-num">III</div>
+            <div class="q-desc">X− Y−</div>
+          </button>
+          <button class="quadrant-btn q4-btn" data-quadrant="IV">
+            <div class="q-num">IV</div>
+            <div class="q-desc">X+ Y−</div>
+          </button>
+          <button class="quadrant-btn axis-btn" data-quadrant="Eje X">
+            <div class="q-num">═</div>
+            <div class="q-desc">Eje X</div>
+          </button>
+          <button class="quadrant-btn axis-btn" data-quadrant="Eje Y">
+            <div class="q-num">║</div>
+            <div class="q-desc">Eje Y</div>
+          </button>
+          <button class="quadrant-btn origin-btn" data-quadrant="Origen">
+            <div class="q-num">⊙</div>
+            <div class="q-desc">Origen</div>
+          </button>
+        </div>
+
+        <button id="newQuadrantBtn" class="btn btn-outline" style="margin-top: 16px;">
+          <span class="btn-icon">🔄</span>
+          <span class="btn-text">Nueva Coordenada</span>
+        </button>
+
+        <div id="quadrantFeedback" class="feedback-message"></div>
+
+        <div class="hint-section">
+          <p><strong>💡 Ayuda:</strong> Cuadrante I (ambos positivos), II (X negativo, Y positivo), III (ambos negativos), IV (X positivo, Y negativo)</p>
+        </div>
+      </section>
+
+      <!-- Ejercicio 3: Ubicar punto en la cuadrícula -->
+      <section class="card">
+        <div class="card-icon">🎯</div>
+        <h2>Ejercicio 3: Ubica el Punto</h2>
+        <p class="instruction">Haz clic en la cuadrícula donde debe estar este punto:</p>
+        
+        <div class="coord-display" id="placePointCoord">
+          <span class="coord-badge">(?, ?)</span>
+        </div>
+
+        <div class="interactive-board-wrapper">
+          <div class="board clickable-board" id="placeBoard"></div>
+        </div>
+
+        <button id="newPlaceBtn" class="btn btn-outline">
+          <span class="btn-icon">🔄</span>
+          <span class="btn-text">Nuevo Desafío</span>
+        </button>
+
+        <div id="placeFeedback" class="feedback-message"></div>
+
+        <div class="hint-section">
+          <p><strong>💡 Estrategia:</strong> Comienza en el centro (0,0), muévete primero en X (derecha/izquierda), luego en Y (arriba/abajo)</p>
+        </div>
+      </section>
+
+      <!-- Navegación -->
+      <section class="card navigation-card">
+        <h2>📚 ¿Qué hacer ahora?</h2>
+        <div class="action-buttons">
+          <a href="index.html" class="btn btn-outline">
+            <span class="btn-icon">📖</span>
+            <span class="btn-text">Repasar la Lección</span>
+          </a>
+          <a href="examen.html" class="btn btn-primary">
+            <span class="btn-icon">📝</span>
+            <span class="btn-text">Presentar Examen</span>
+          </a>
+        </div>
+        
+        <div style="margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #DBEAFE 0%, white 100%); border-radius: 12px; border-left: 4px solid #3B82F6;">
+          <p style="margin: 0; color: #1F2937; font-weight: 600;">
+            <strong>📊 Consejo:</strong> Practica cada ejercicio al menos 5 veces antes de hacer el examen. ¡La práctica hace al maestro!
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>🎯 Actividades - Coordenadas Cartesianas</p>
+      <p class="footer-small">Matemáticas 6° Grado</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

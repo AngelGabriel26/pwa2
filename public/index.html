@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Coordenadas Cartesianas - Candy Land 🍬</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body id="page-lesson">
+  <div class="page">
+    <header class="hero">
+      <div class="hero-content">
+        <div class="logo">📐</div>
+        <div class="hero-text">
+          <h1>Coordenadas Cartesianas</h1>
+          <p class="lead">Aprende a ubicar puntos en el plano - Matemáticas 6° Grado</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Introducción amigable -->
+      <section class="card intro-card">
+        <div class="card-icon">📍</div>
+        <h2>¿Qué son las coordenadas?</h2>
+        <p class="text-large">¡Las coordenadas son como direcciones en un mapa del tesoro! 🗺️</p>
+        <p>Imagina que quieres decirle a un amigo dónde está escondido un dulce. Las coordenadas te ayudan a dar la ubicación exacta usando dos números mágicos:</p>
+        <div class="coord-boxes">
+          <div class="coord-box coord-x">
+            <div class="coord-label">X (Primera)</div>
+            <div class="coord-desc">👉 Izquierda o Derecha</div>
+          </div>
+          <div class="coord-box coord-y">
+            <div class="coord-label">Y (Segunda)</div>
+            <div class="coord-desc">⬆️ Arriba o Abajo</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Explicación del plano cartesiano -->
+      <section class="card">
+        <div class="card-icon">🎯</div>
+        <h2>El Plano Cartesiano</h2>
+        <p>Es como una cuadrícula mágica con dos líneas que se cruzan en el centro:</p>
+        
+        <div class="plane-explanation">
+          <div class="plane-diagram">
+            <div class="axis-label axis-label-top">Y (+)</div>
+            <div class="axis-label axis-label-right">X (+)</div>
+            <div class="axis-label axis-label-bottom">Y (−)</div>
+            <div class="axis-label axis-label-left">X (−)</div>
+            <div class="plane-center">
+              <div class="origin-dot"></div>
+              <span class="origin-label">Origen (0,0)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <strong>💡 Dato importante:</strong> El centro donde se cruzan las líneas se llama <strong>ORIGEN</strong> y su coordenada es (0, 0)
+        </div>
+      </section>
+
+      <!-- Los 4 cuadrantes -->
+      <section class="card">
+        <div class="card-icon">🧩</div>
+        <h2>Los Cuatro Cuadrantes</h2>
+        <p>El plano se divide en 4 zonas llamadas cuadrantes. ¡Cada una tiene un color diferente!</p>
+        
+        <div class="quadrants-grid">
+          <div class="quadrant q2">
+            <div class="q-number">II</div>
+            <div class="q-name">Cuadrante II</div>
+            <div class="q-coords">X negativo (−)<br>Y positivo (+)</div>
+            <div class="q-example">Ejemplo: (−3, 2)</div>
+          </div>
+          <div class="quadrant q1">
+            <div class="q-number">I</div>
+            <div class="q-name">Cuadrante I</div>
+            <div class="q-coords">X positivo (+)<br>Y positivo (+)</div>
+            <div class="q-example">Ejemplo: (4, 5)</div>
+          </div>
+          <div class="quadrant q3">
+            <div class="q-number">III</div>
+            <div class="q-name">Cuadrante III</div>
+            <div class="q-coords">X negativo (−)<br>Y negativo (−)</div>
+            <div class="q-example">Ejemplo: (−2, −4)</div>
+          </div>
+          <div class="quadrant q4">
+            <div class="q-number">IV</div>
+            <div class="q-name">Cuadrante IV</div>
+            <div class="q-coords">X positivo (+)<br>Y negativo (−)</div>
+            <div class="q-example">Ejemplo: (3, −1)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pasos para ubicar un punto -->
+      <section class="card">
+        <div class="card-icon">👣</div>
+        <h2>¿Cómo ubicar un punto? - Paso a paso</h2>
+        <p class="text-large">¡Es muy fácil! Solo sigue estos 3 pasos:</p>
+        
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Empieza en el origen (0,0)</h3>
+              <p>Siempre comenzamos en el centro, donde se cruzan las líneas</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Muévete en X (horizontal)</h3>
+              <p>Si X es positivo → ve a la derecha 👉<br>Si X es negativo → ve a la izquierda 👈</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Muévete en Y (vertical)</h3>
+              <p>Si Y es positivo → sube ⬆️<br>Si Y es negativo → baja ⬇️</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-box">
+          <strong>🎈 Ejemplo:</strong> Para ubicar el punto (3, −2):
+          <ol>
+            <li>Empiezas en (0, 0)</li>
+            <li>Te mueves 3 espacios a la derecha (X = 3)</li>
+            <li>Bajas 2 espacios (Y = −2)</li>
+            <li>¡Ahí está tu punto! 🎯</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Tablero interactivo -->
+      <section class="card interactive-card">
+        <div class="card-icon">🎮</div>
+        <h2>¡Practica aquí! - Tablero Interactivo</h2>
+        <p>Haz clic en los puntos de colores para ver sus coordenadas:</p>
+        
+        <div class="interactive-board-container">
+          <div class="mini-board-large" id="miniBoardLesson"></div>
+          <div id="miniBoardHint" class="hint-box">👆 Haz clic en cualquier punto de color para ver su coordenada</div>
+        </div>
+
+        <div class="tips-box">
+          <h3>💪 Consejos para aprender mejor:</h3>
+          <ul>
+            <li>✅ Siempre lee primero X y después Y</li>
+            <li>✅ Recuerda: X horizontal, Y vertical</li>
+            <li>✅ El signo positivo (+) no se escribe, pero el negativo (−) sí</li>
+            <li>✅ Practica 5 minutos cada día</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Botones de navegación -->
+      <section class="card actions-card">
+        <h2>¿Listo para practicar?</h2>
+        <div class="action-buttons">
+          <button id="goActivities" class="btn btn-primary btn-large">
+            <span class="btn-icon">🎯</span>
+            <span class="btn-text">Ir a Ejercicios</span>
+          </button>
+          <button id="goExam" class="btn btn-secondary btn-large">
+            <span class="btn-icon">📝</span>
+            <span class="btn-text">Hacer Examen</span>
+          </button>
+        </div>
+        
+        <div class="notification-section">
+          <h3>🔔 Recordatorios de Práctica</h3>
+          <p>Activa las notificaciones para recibir recordatorios diarios:</p>
+          <div class="notification-buttons">
+            <button id="btnNotify" class="btn btn-outline">
+              <span class="btn-icon">🔔</span>
+              <span class="btn-text">Activar Recordatorios</span>
+            </button>
+            <button id="btnNotifyTest" class="btn btn-muted">
+              <span class="btn-icon">📨</span>
+              <span class="btn-text">Probar Notificación</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Aprendizaje para 6° Grado</p>
+      <p class="footer-small">Matemáticas • Geometría • Plano Cartesiano</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
