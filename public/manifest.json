@@ -2,57 +2,57 @@
   "name": "Coordenadas Cartesianas - Matemáticas 6°",
   "short_name": "Coordenadas",
   "description": "Aplicación educativa para aprender coordenadas cartesianas - 6° Grado",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#F3F4F6",
   "theme_color": "#3B82F6",
-  "scope": "/",
+  "scope": "./",
   "icons": [
     {
-      "src": "/icons/icon-72.png",
+      "src": "icons/icon-72.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-96.png",
+      "src": "icons/icon-96.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-128.png",
+      "src": "icons/icon-128.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-144.png",
+      "src": "icons/icon-144.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-152.png",
+      "src": "icons/icon-152.png",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-192.png",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-384.png",
+      "src": "icons/icon-384.png",
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-512.png",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -60,13 +60,13 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshots/screenshot1.png",
+      "src": "screenshots/screenshot1.png",
       "sizes": "540x720",
       "type": "image/png",
       "form_factor": "narrow"
     },
     {
-      "src": "/screenshots/screenshot2.png",
+      "src": "screenshots/screenshot2.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide"
