@@ -1,10 +1,33 @@
 /* ==================================================
    app.js - Potencia y Raíz Cuadrada (versión robusta)
-   Sistema completo con lógica aritmética
+   Sistema completo con lógica aritmética + Splash Screen
    ================================================== */
 
 (function () {
   'use strict';
+
+  // ===== SPLASH SCREEN HANDLER =====
+  function initSplashScreen() {
+    const splashScreen = document.getElementById('splash-screen');
+    const body = document.body;
+
+    if (!splashScreen) return;
+
+    // Esperar 1.5 segundos antes de ocultar la splash screen
+    setTimeout(() => {
+      // Agregar clase fade-out para la animación
+      splashScreen.classList.add('fade-out');
+      
+      // Marcar el body como cargado
+      body.classList.remove('loading');
+      body.classList.add('loaded');
+
+      // Eliminar el splash screen del DOM después de la animación
+      setTimeout(() => {
+        splashScreen.remove();
+      }, 500); // 500ms = duración de la animación fadeOut
+    }, 1500); // 1500ms = 1.5 segundos
+  }
 
   // ===== UTILIDADES =====
   /** Genera un entero aleatorio entre min y max (inclusive). */
@@ -228,6 +251,9 @@
   // Ejecutar cuando el DOM esté listo para evitar condiciones de carrera entre scripts
   document.addEventListener('DOMContentLoaded', () => {
     try {
+      // Inicializar splash screen PRIMERO
+      initSplashScreen();
+
       // Solo si estamos en la lección (index.html) renderizamos el ejercicio interactivo
       if (document.getElementById('page-lesson')) {
         renderInteractiveLesson();

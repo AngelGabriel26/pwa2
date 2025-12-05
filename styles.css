@@ -12,6 +12,7 @@
   --secondary: #38B2AC; /* Teal/Menta - para acentos/reglas */
   --secondary-light: #E6FFFA;
   --accent: #F6AD55; /* Naranja/Cálido - para exponentes */
+
   
   /* Colores de Texto y Fondo */
   --text-dark: #1A202C;
@@ -37,6 +38,93 @@
   margin: 0;
   padding: 0;
 }
+
+ /* Splash Screen Styles */
+    #splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #5A67D8 0%, #3B4DB8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+     #splash-screen.fade-out {
+      animation: fadeOut 0.5s ease-out forwards;
+    }
+
+    .splash-logo {
+      font-size: 5rem;
+      margin-bottom: 20px;
+      animation: bounce 1s ease-in-out infinite;
+    }
+
+     .splash-title {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-align: center;
+      padding: 0 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .splash-subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      font-weight: 500;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .splash-loader {
+      margin-top: 30px;
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Ocultar contenido principal hasta que cargue */
+    body.loading .page {
+      opacity: 0;
+    }
+
+    body.loaded .page {
+      opacity: 1;
+      animation: contentFadeIn 0.5s ease-in;
+    }
+
+    @keyframes contentFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
 html {
   font-size: 16px;

@@ -1,7 +1,7 @@
 {
-  "name": "Coordenadas Cartesianas - Matemáticas 6°",
+  "name": "Raiz cuadrada - Matemáticas 6°",
   "short_name": "Coordenadas",
-  "description": "Aplicación educativa para aprender coordenadas cartesianas - 6° Grado",
+  "description": "Aplicación educativa para aprender Raiz cuadrada - 6° Grado",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",

@@ -47,7 +47,7 @@ function saveSubscriptions() {
 // ===== CONFIGURACIÓN VAPID =====
 const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY;
 const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
-const VAPID_SUBJECT = process.env.VAPID_SUBJECT || 'mailto:romi.admin@ejemplo.com';
+const VAPID_SUBJECT = process.env.VAPID_SUBJECT || 'mailto:angel.admin@ejemplo.com';
 
 let vapidKeys = { publicKey: VAPID_PUBLIC_KEY, privateKey: VAPID_PRIVATE_KEY };
 
